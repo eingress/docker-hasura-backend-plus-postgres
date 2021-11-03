@@ -12,17 +12,18 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
 
-CREATE OR REPLACE FUNCTION public.set_current_timestamp_updated_at() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-declare
+CREATE OR REPLACE FUNCTION public.set_current_timestamp_updated_at ()
+  RETURNS TRIGGER
+  LANGUAGE plpgsql
+  AS $$
+DECLARE
   _new record;
-begin
+BEGIN
   _new := new;
   _new. "updated_at" = now();
-  return _new;
-end;
+  RETURN _new;
+END;
 $$;
 
-
+CREATE EXTENSION postgis;
 
